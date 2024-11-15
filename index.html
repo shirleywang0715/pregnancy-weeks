@@ -3,98 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pregnancy Week Calculator</title>
-    <!-- Link to Google Fonts for Playfair Display -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Pregnancy Progress Tracker</title>
     <style>
-        /* Apply Playfair Display font to the entire body */
+        /* Basic styling for the input and result */
         body {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        /* Center content on the page */
-        h1 {
-            text-align: center;
-            font-size: 2.5em;
-            margin-top: 50px;
-            color: #5c5c5c;
-        }
-
-        label {
-            font-size: 1.2em;
-            display: block;
-            margin-bottom: 10px;
-            text-align: center;
+        .input-container {
+            margin-bottom: 20px;
         }
 
         input[type="date"] {
             padding: 10px;
-            font-size: 1em;
-            width: 50%;
-            margin: 10px auto;
-            display: block;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            text-align: center;
+            font-size: 16px;
         }
 
         #result {
-            text-align: center;
-            font-size: 1.5em;
-            margin-top: 20px;
-            color: #0073e6;
+            font-size: 32px; /* Default font size for result */
+            color: #333;
         }
     </style>
-    <script>
-        function calculateWeeks() {
-            // Get the due date entered by the user
-            const dueDateInput = document.getElementById('dueDate').value;
-            if (!dueDateInput) {
-                document.getElementById('result').innerHTML = "";
-                return;
-            }
-
-            // Convert the due date to a JavaScript Date object
-            const dueDate = new Date(dueDateInput);
-
-            // Get today's date
-            const today = new Date();
-
-            // Calculate the conception date (14 days before the due date)
-            const conceptionDate = new Date(dueDate);
-            conceptionDate.setDate(dueDate.getDate() - 14);
-
-            // Calculate the difference in milliseconds between today and the conception date
-            const diffInMs = today - conceptionDate;
-
-            // Convert milliseconds to days
-            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-
-            // If the conception date is in the future, show an error message
-            if (diffInDays < 0) {
-                document.getElementById('result').innerHTML = "Due date is in the future. Please check your input.";
-                return;
-            }
-
-            // Calculate the number of full weeks and the remaining days
-            const weeks = Math.floor(diffInDays / 7);
-            const days = Math.floor(diffInDays % 7);
-
-            // Display the result
-            document.getElementById('result').innerHTML = `You are ${weeks} weeks and ${days} days pregnant.`;
-        }
-    </script>
 </head>
 <body>
-    <h1>Pregnancy Week Calculator</h1>
-    
-    <label for="dueDate">Enter your due date:</label>
-    <input type="date" id="dueDate" name="dueDate" oninput="calculateWeeks()">
+    <h1>Pregnancy Progress Tracker</h1>
+    <div class="input-container">
+        <label for="dueDate">Enter your due date:</label>
+        <input type="date" id="dueDate" onchange="calculateWeeks()">
+    </div>
 
-    <h2 id="result"></h2>
+    <div id="result">Please enter your due date</div>
+
+    <script>
+        // Function to calculate the number of weeks pregnant based on the due date
+        function calculateWeeks() {
+            const dueDateInput = document.getElementById('dueDate').value;
+            if (!dueDateInput) {
+                document.getElementById('result').innerHTML = "Please enter your due date";
+                return;
+            }
+
+            // Get the current date and the user's due date
+            const dueDate = new Date(dueDateInput);
+            const today = new Date();
+
+            // Calculate the difference in milliseconds
+            const timeDifference = dueDate - today;
+
+            // Convert the time difference to weeks (7 days per week, 1000 ms per second, 60 seconds per minute, 60 minutes per hour, 24 hours per day)
+            const daysPregnant = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const weeksPregnant = Math.floor(daysPregnant / 7);
+
+            // Display the result
+            document.getElementById('result').innerHTML = `You are ${weeksPregnant} weeks pregnant.`;
+        }
+    </script>
 </body>
 </html>
