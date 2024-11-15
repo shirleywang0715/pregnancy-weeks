@@ -42,22 +42,6 @@
             text-align: center;
         }
 
-        button {
-            font-size: 1.2em;
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin: 20px auto;
-            display: block;
-        }
-
-        button:hover {
-            background-color: #555;
-        }
-
         #result {
             text-align: center;
             font-size: 1.5em;
@@ -90,7 +74,7 @@
             // Convert milliseconds to days
             const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 
-            // If the conception date is in the future, show 0 weeks 0 days
+            // If the conception date is in the future, show an error message
             if (diffInDays < 0) {
                 document.getElementById('result').innerHTML = "Due date is in the future. Please check your input.";
                 return;
