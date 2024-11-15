@@ -43,7 +43,7 @@
     <div id="result">Please enter your due date</div>
 
     <script>
-        // Function to calculate the number of weeks pregnant based on the due date
+        // Function to calculate the number of weeks of pregnancy so far based on the due date
         function calculateWeeks() {
             const dueDateInput = document.getElementById('dueDate').value;
             if (!dueDateInput) {
@@ -51,22 +51,25 @@
                 return;
             }
 
-            // Get the current date and the user's due date
+            // Get the user's due date and today's date
             const dueDate = new Date(dueDateInput);
             const today = new Date();
 
-            // Calculate the difference in milliseconds
-            const timeDifference = dueDate - today;
+            // Calculate the start of the pregnancy (40 weeks before the due date)
+            const startDate = new Date(dueDate);
+            startDate.setDate(startDate.getDate() - 280); // 280 days = 40 weeks
 
-            // If the due date is in the future, calculate weeks pregnant
-            if (timeDifference > 0) {
-                const daysPregnant = Math.floor((today - new Date("2024-01-29")) / (1000 * 60 * 60 * 24)); // Start date: Jan 29, 2024
-                const weeksPregnant = Math.floor(daysPregnant / 7);
+            // Calculate how many weeks have passed since the start of the pregnancy
+            const timeElapsed = today - startDate;
+            const weeksElapsed = Math.floor(timeElapsed / (1000 * 60 * 60 * 24 * 7)); // Convert milliseconds to weeks
 
-                // Display the result
-                document.getElementById('result').innerHTML = `You are ${weeksPregnant} weeks pregnant.`;
+            // Display the result
+            if (weeksElapsed >= 0 && weeksElapsed <= 40) {
+                document.getElementById('result').innerHTML = `You are approximately ${weeksElapsed} weeks pregnant.`;
+            } else if (weeksElapsed > 40) {
+                document.getElementById('result').innerHTML = "Your due date has passed. Please check the date.";
             } else {
-                document.getElementById('result').innerHTML = "Your due date is in the past. Please check the date.";
+                document.getElementById('result').innerHTML = "Your pregnancy has not yet started. Please check the date.";
             }
         }
     </script>
