@@ -1,0 +1,30 @@
+<div id="pregnancy-timer">
+    <h3>Pregnancy Progress:</h3>
+    <p id="pregnancy-weeks-days">Loading...</p>
+</div>
+
+<script>
+    function calculatePregnancy() {
+        // Due date: Adjust to your due date
+        const dueDate = new Date("2025-01-29"); // Replace with your actual due date
+        
+        // Get today's date
+        const today = new Date();
+        
+        // Calculate the difference in milliseconds
+        const diffTime = dueDate - today;
+        
+        // Convert milliseconds to days
+        const diffDays = diffTime / (1000 * 3600 * 24);
+        
+        // Calculate weeks and days
+        const weeks = Math.floor(diffDays / 7);
+        const days = Math.floor(diffDays % 7);
+        
+        // Display the result
+        document.getElementById("pregnancy-weeks-days").textContent = weeks + " weeks " + days + " days";
+    }
+    
+    // Call the function to display the result
+    calculatePregnancy();
+</script>
