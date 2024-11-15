@@ -4,12 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pregnancy Week Calculator</title>
+    <!-- Link to Google Fonts for Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Playfair Display font to the entire body */
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Center content on the page */
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 50px;
+            color: #5c5c5c;
+        }
+
+        label {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 50%;
+            margin: 10px auto;
+            display: block;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #0073e6;
+        }
+    </style>
     <script>
         function calculateWeeks() {
             // Get the due date entered by the user
             const dueDateInput = document.getElementById('dueDate').value;
             if (!dueDateInput) {
-                alert("Please enter your due date.");
+                document.getElementById('result').innerHTML = "";
                 return;
             }
 
@@ -29,6 +90,12 @@
             // Convert milliseconds to days
             const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 
+            // If the conception date is in the future, show 0 weeks 0 days
+            if (diffInDays < 0) {
+                document.getElementById('result').innerHTML = "Due date is in the future. Please check your input.";
+                return;
+            }
+
             // Calculate the number of full weeks and the remaining days
             const weeks = Math.floor(diffInDays / 7);
             const days = Math.floor(diffInDays % 7);
@@ -42,8 +109,7 @@
     <h1>Pregnancy Week Calculator</h1>
     
     <label for="dueDate">Enter your due date:</label>
-    <input type="date" id="dueDate" name="dueDate">
-    <button onclick="calculateWeeks()">Calculate Weeks</button>
+    <input type="date" id="dueDate" name="dueDate" oninput="calculateWeeks()">
 
     <h2 id="result"></h2>
 </body>
