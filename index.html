@@ -58,12 +58,16 @@
             // Calculate the difference in milliseconds
             const timeDifference = dueDate - today;
 
-            // Convert the time difference to weeks (7 days per week, 1000 ms per second, 60 seconds per minute, 60 minutes per hour, 24 hours per day)
-            const daysPregnant = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const weeksPregnant = Math.floor(daysPregnant / 7);
+            // If the due date is in the future, calculate weeks pregnant
+            if (timeDifference > 0) {
+                const daysPregnant = Math.floor((today - new Date("2024-01-29")) / (1000 * 60 * 60 * 24)); // Start date: Jan 29, 2024
+                const weeksPregnant = Math.floor(daysPregnant / 7);
 
-            // Display the result
-            document.getElementById('result').innerHTML = `You are ${weeksPregnant} weeks pregnant.`;
+                // Display the result
+                document.getElementById('result').innerHTML = `You are ${weeksPregnant} weeks pregnant.`;
+            } else {
+                document.getElementById('result').innerHTML = "Your due date is in the past. Please check the date.";
+            }
         }
     </script>
 </body>
