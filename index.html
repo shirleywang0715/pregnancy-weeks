@@ -14,10 +14,14 @@
             color: black; /* Default light mode text color */
         }
         
+        h1 {
+            display: none; /* Hide the title */
+        }
+        
         #result {
             margin-top: 20px;
             font-weight: bold;
-            font-size: calc(2vw + 1rem); /* Responsive font size based on viewport width */
+            font-size: calc(1.5vw + 0.8rem); /* Reduced font size for responsiveness */
             background-color: white; /* Default light mode container background */
             padding: 10px;
             border-radius: 10px;
@@ -54,13 +58,13 @@
         @media (max-width: 600px) {
             /* Smaller devices: adjust font size for readability */
             #result {
-                font-size: calc(4vw + 1rem);
+                font-size: calc(3vw + 0.8rem);
             }
         }
     </style>
 </head>
 <body>
-    <h1>Pregnancy Progress Tracker</h1>
+    <h1>Pregnancy Progress Tracker</h1> <!-- This is hidden -->
     <div class="input-container">
         <label for="dueDate">Enter your due date:</label>
         <input type="date" id="dueDate" oninput="calculateWeeks()">
